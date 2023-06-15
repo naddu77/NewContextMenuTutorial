@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:desktop2="http://schemas.microsoft.com/appx/manifest/desktop/windows10/2"
+  xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4"
+  xmlns:desktop5="http://schemas.microsoft.com/appx/manifest/desktop/windows10/5"
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  xmlns:virtualization="http://schemas.microsoft.com/appx/manifest/virtualization/windows10"
+  IgnorableNamespaces="uap uap2 uap3 uap10 rescap desktop desktop2 desktop4 desktop5 com virtualization">
+
+	<Identity
+	  Name="MyMFCApp"
+	  Publisher="CN=USER"
+	  Version="1.0.0.0" />
+
+	<Properties>
+		<DisplayName>MyMFCApp</DisplayName>
+		<PublisherDisplayName>USER</PublisherDisplayName>
+		<Logo>Images\StoreLogo.png</Logo>
+		<uap10:PackageIntegrity>
+			<uap10:Content Enforcement="on" />
+		</uap10:PackageIntegrity>
+		<virtualization:FileSystemWriteVirtualization>
+			<virtualization:ExcludedDirectories>
+				<virtualization:ExcludedDirectory>$(KnownFolder:LocalAppData)</virtualization:ExcludedDirectory>
+				<virtualization:ExcludedDirectory>$(KnownFolder:LocalAppDataLow)</virtualization:ExcludedDirectory>
+				<virtualization:ExcludedDirectory>$(KnownFolder:RoamingAppData)</virtualization:ExcludedDirectory>
+			</virtualization:ExcludedDirectories>
+		</virtualization:FileSystemWriteVirtualization>
+	</Properties>
+
+	<Resources>
+		<Resource Language="en-us"/>
+	</Resources>
+
+	<Dependencies>
+		<TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19000.0" MaxVersionTested="10.0.19000.0" />
+	</Dependencies>
+
+	<Applications>
+		<Application Id="MyMFCApp"
+		  Executable="MyMFCApp.exe"
+		  EntryPoint="Windows.FullTrustApplication">
+			<uap:VisualElements
+			  DisplayName="MyMFCApp"
+			  Description="MyMFCApp"
+			  BackgroundColor="transparent"
+			  Square150x150Logo="Images\Square150x150Logo.png"
+			  Square44x44Logo="Images\Square44x44Logo.png">
+				<uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+				<uap:SplashScreen Image="Images\SplashScreen.png" />
+			</uap:VisualElements>
+			<Extensions>
+				<uap3:Extension Category="windows.fileTypeAssociation">
+					<uap3:FileTypeAssociation Name="hell" Parameters="&quot;%1&quot;">
+						<uap:SupportedFileTypes>
+							<uap:FileType>.mybox</uap:FileType>
+						</uap:SupportedFileTypes>
+						<uap2:SupportedVerbs>
+							<uap3:Verb Id="Resize" Parameters="&quot;%1&quot;">Resize file</uap3:Verb>
+						</uap2:SupportedVerbs>
+					</uap3:FileTypeAssociation>
+				</uap3:Extension>
+				<com:Extension Category="windows.comServer">
+					<com:ComServer>
+						<com:SurrogateServer DisplayName="ContextMenuSample">
+							<com:Class Id="5202149C-DD51-4CA1-B23D-4C1407F2514E" Path="ExplorerCommandVerb.dll" ThreadingModel="STA"/>
+						</com:SurrogateServer>
+					</com:ComServer>
+				</com:Extension>
+				<desktop4:Extension Category="windows.fileExplorerContextMenus">
+					<desktop4:FileExplorerContextMenus>
+						<desktop5:ItemType Type="*">
+							<desktop5:Verb Id="Command1" Clsid="5202149C-DD51-4CA1-B23D-4C1407F2514E" />
+						</desktop5:ItemType>
+						<desktop5:ItemType Type="Directory">
+							<desktop5:Verb Id="Command1" Clsid="5202149C-DD51-4CA1-B23D-4C1407F2514E" />
+						</desktop5:ItemType>
+					</desktop4:FileExplorerContextMenus>
+				</desktop4:Extension>
+				<com:Extension Category="windows.comServer">
+					<com:ComServer>
+						<com:SurrogateServer DisplayName="CppThumbnailProvider">
+							<com:Class Id="97226282-7601-47C0-A953-F9E9206D93DF" Path="ExplorerCommandVerb.dll" ThreadingModel="STA"/>
+						</com:SurrogateServer>
+					</com:ComServer>
+				</com:Extension>
+				<uap:Extension Category="windows.fileTypeAssociation">
+					<uap3:FileTypeAssociation Name="jpgfile">
+						<uap:SupportedFileTypes>
+							<uap:FileType>.jpg</uap:FileType>
+							<uap:FileType>.bar</uap:FileType>
+						</uap:SupportedFileTypes>
+						<desktop2:ThumbnailHandler Clsid="97226282-7601-47C0-A953-F9E9206D93DF"/>
+					</uap3:FileTypeAssociation>
+				</uap:Extension>
+			</Extensions>
+		</Application>
+	</Applications>
+
+	<Capabilities>
+		<rescap:Capability Name="runFullTrust" />
+		<rescap:Capability Name="unvirtualizedResources" />
+	</Capabilities>
+</Package>

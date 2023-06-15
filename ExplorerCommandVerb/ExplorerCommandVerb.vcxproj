@@ -155,7 +155,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy $(OutputPath)$(MSBuildProjectName).dll $(SolutionDir)EmptyMFCAppPackage\ /y</Command>
+      <Command>xcopy $(OutputPath)$(MSBuildProjectName).dll $(SolutionDir)MyMFCAppPackage\ /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
